@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>2d1076b4-3e22-498f-bf45-0b6173a6139b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RepoDb.SqlServer" Version="1.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AlwaysTravel.ApplicationCore\AlwaysTravel.ApplicationCore.csproj" />
+    <ProjectReference Include="..\AlwaysTravel.Infrastructure\AlwaysTravel.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

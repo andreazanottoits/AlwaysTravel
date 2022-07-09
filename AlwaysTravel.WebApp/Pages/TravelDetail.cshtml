@@ -1,0 +1,48 @@
+﻿@page "{id}"
+@model AlwaysTravel.WebApp.Pages.TravelDetailModel
+@{
+    /*
+    @foreach (var stageData in Model.StagesData)
+    {
+        <div class="d-flex flex-column">
+            <div>
+                <h2>@stageData.Stage.Name (@stageData.Stage.Date.ToString("dd MMMM"))</h2> 
+            </div>
+            @foreach (var item in stageData.Packages)
+            {
+                <div>
+                    <p><b>pacchetto: </b>@item.Name</p>
+                </div>
+            }
+        </div>
+    }
+    */
+
+    var stageCount = 1;
+   
+            
+    <ul>
+
+    @foreach (var stageData in Model.StagesData)
+    {
+        int packageCount = 1;
+
+        <li style="list-style:none">
+            <h2><b>tappa @stageCount</b> (@stageData.Stage.Date.ToString("dd MMMM"))</h2> 
+        </li>
+        stageCount++;
+        <li style="list-style:none"><b>Pacchetti tappa:</b>
+            <ul>
+                @foreach (var item in stageData.Packages)
+            {
+                <li>
+                    <p><b>pacchetto @packageCount: </b>@item.Name</p>
+                </li>
+                packageCount++;
+            }
+            </ul>
+        </li>
+    }
+    </ul>
+
+}

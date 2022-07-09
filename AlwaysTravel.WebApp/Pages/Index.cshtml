@@ -1,0 +1,21 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1>Lista Viaggi</h1>
+    @foreach (var travel in @Model.Travels)
+    {
+        <div class="d-flex flex-row justify-content-between">
+            <div class="d-flex flex-column">
+                <h2>@travel.Name</h2>
+                <h2>Dal @travel.StartDate.ToString("dd MMMM") al @travel.EndDate.ToString("dd MMMM")</h2>  
+             </div>
+             <div class="align-self-center">
+                 <a class="btn btn-primary" href="/TravelDetail/@travel.Id">Dettagli viaggio</a>
+            </div>
+        </div>
+    }
+</div>
