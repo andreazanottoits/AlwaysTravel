@@ -1,7 +1,25 @@
+using AlwaysTravel.ApplicationCore.Interfaces.IRepository;
+using AlwaysTravel.ApplicationCore.Interfaces.IService;
+using AlwaysTravel.ApplicationCore.Services;
+using AlwaysTravel.Infrastructure.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddSingleton<IPackageRepository, PackageRepository>();
+builder.Services.AddSingleton<IStageRepository, StageRepository>();
+builder.Services.AddSingleton<ITravelRepository, TravelRepository>();
+builder.Services.AddSingleton<ITravelHasStageRepository, TravelHasStageRepository>();
+
+builder.Services.AddSingleton<IPackageService, PackageService>();
+builder.Services.AddSingleton<IStageService, StageService>();
+builder.Services.AddSingleton<ITravelService, TravelService>();
+builder.Services.AddSingleton<ITravelHasStageService, TravelHasStageService>();
+
+
+RepoDb.SqlServerBootstrap.Initialize();
 
 var app = builder.Build();
 

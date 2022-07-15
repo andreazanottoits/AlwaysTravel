@@ -1,19 +1,21 @@
-﻿using AlwaysTravel.DTO;
-using Microsoft.AspNetCore.Mvc;
+﻿using AlwaysTravel.ApplicationCore.Interfaces.IService;
+using AlwaysTravel.DTO;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Text.Json;
 
 namespace AlwaysTravel.WebApp.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        public List<Travel> Travels { get; set; }
-        public IndexModel(ILogger<IndexModel> logger)
+        private readonly ITravelService _travelService;
+        public IEnumerable<Travel> Travels { get; set; }
+        public IndexModel(ILogger<IndexModel> logger, ITravelService travelService)
         {
             _logger = logger;
+            _travelService = travelService;
         }
 
+        /*
         public async Task OnGet()
         {
             using var client = new HttpClient();
@@ -33,6 +35,12 @@ namespace AlwaysTravel.WebApp.Pages
             {
 
             }
+        }
+        */
+
+        public void OnGet()
+        {
+            Travels = _travelService.GetAll();
         }
     }
 }

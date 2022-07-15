@@ -4,10 +4,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>23e9fc09-f9c4-4faa-8571-950f6626598b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AlwaysTravel.ApplicationCore\AlwaysTravel.ApplicationCore.csproj" />
     <ProjectReference Include="..\AlwaysTravel.DTO\AlwaysTravel.DTO.csproj" />
+    <ProjectReference Include="..\AlwaysTravel.Infrastructure\AlwaysTravel.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

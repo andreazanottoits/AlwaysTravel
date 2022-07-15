@@ -7,10 +7,16 @@ namespace AlwaysTravel.ApplicationCore.Services
     public class TravelService : ITravelService
     {
         private readonly ITravelRepository _travelRepository;
+        private readonly ITravelHasStageService _travelHasStageService;
+        private readonly IStageService _stageService;
+        private readonly IPackageService _packageService;
 
-        public TravelService(ITravelRepository travelRepository)
+        public TravelService(ITravelRepository travelRepository, ITravelHasStageService travelHasStageService, IStageService stageService, IPackageService packageService)
         {
             _travelRepository = travelRepository;
+            _travelHasStageService = travelHasStageService;
+            _stageService = stageService;
+            _packageService = packageService;
         }
 
         public long Count()
@@ -31,6 +37,25 @@ namespace AlwaysTravel.ApplicationCore.Services
         public IEnumerable<Travel> GetAll()
         {
             return _travelRepository.GetAll();
+        }
+
+        public List<StageData> GetAllTravelInformation(int id)
+        {
+            IEnumerable<TravelHasStage> travelHasStage = _travelHasStageService.GetAllStageIdByTravelId(id);
+
+            List<StageData> stageData = new List<StageData>();
+            foreach (var item in travelHasStage)
+            {
+                Stage stage = _stageService.Get(item.StageId);
+                IEnumerable<Package> packages = _packageService.GetAllPackagesByStageId(item.StageId);
+
+                stageData.Add(new StageData
+                {
+                    Stage = stage,
+                    Packages = packages
+                });
+            }
+            return stageData;
         }
 
         public void Insert(Travel travel)

@@ -34,21 +34,8 @@ namespace AlwaysTravel.WebApi.Controllers
         [Route("GetTravelData/{id}")]
         public IActionResult GetTravelData(int id)
         {
-            IEnumerable<TravelHasStage> travelHasStage = _travelHasStageService.GetAllStageIdByTravelId(id);
-
-            List<StageData> stageData = new List<StageData>();
-            foreach (var item in travelHasStage)
-            {
-                Stage stage = _stageService.Get(item.StageId);
-                IEnumerable<Package> packages = _packageService.GetAllPackagesByStageId(item.StageId);
-
-                stageData.Add(new StageData
-                {
-                    Stage = stage,
-                    Packages = packages
-                });
-            }
-            return Ok(stageData);
+            List<StageData>? travelData = _travelService.GetAllTravelInformation(id);
+            return Ok(travelData);
         }
 
     }

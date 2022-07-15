@@ -1,3 +1,4 @@
+using AlwaysTravel.ApplicationCore.Interfaces.IService;
 using AlwaysTravel.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,7 +8,17 @@ namespace AlwaysTravel.WebApp.Pages
 {
     public class TravelDetailModel : PageModel
     {
-        public List<StageData> StagesData { get; set; }
+        private readonly ILogger<IndexModel> _logger;
+        private readonly ITravelService _travelService;
+        public IEnumerable<StageData> StagesData { get; set; }
+
+        public TravelDetailModel(ILogger<IndexModel> logger, ITravelService travelService)
+        {
+            _logger = logger;
+            _travelService = travelService;
+        }
+
+        /*
         public async Task OnGet(int id)
         {
             using var client = new HttpClient();
@@ -27,6 +38,12 @@ namespace AlwaysTravel.WebApp.Pages
             {
 
             }
+        }
+        */
+
+        public void OnGet(int id)
+        {
+            StagesData = _travelService.GetAllTravelInformation(id);
         }
     }
 }
