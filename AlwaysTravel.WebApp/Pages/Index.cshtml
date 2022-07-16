@@ -6,8 +6,11 @@
 
 <div class="text-center">
     <h1>Lista Viaggi</h1>
+
+    
+      
     @foreach (var travel in @Model.Travels)
-    {
+    {<!--
         <div class="d-flex flex-row justify-content-between">
             <div class="d-flex flex-column">
                 <h2>@travel.Name</h2>
@@ -16,6 +19,55 @@
              <div class="align-self-center">
                  <a class="btn btn-primary" href="/TravelDetail/@travel.Id">Dettagli viaggio</a>
             </div>
-        </div>
+        </div>  -->
     }
+    
+    <div id="listMatches">
+        
+    </div>
+  
 </div>
+
+<script>
+    $(document).ready(function () {
+    setInterval(loadMatches, 5000); 
+});
+ 
+function loadMatches() {
+
+     $.ajax({
+            url: "https://localhost:7146/api/Travel/GetAllTravels",
+            type: "GET",
+            crossDomain: true,
+            cors: true ,
+            headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
+            success: function (response) {
+                console.log(response);
+                bindMatches(response);
+            },
+            error: function (xhr, status) {
+                alert("error");
+            }
+        });
+}
+ 
+function bindMatches(matches) {
+    var html = "";
+    $("#listMatches").html("");
+    $.each(matches,
+        function(index, match) {
+            html += `<div class="d-flex flex-row justify-content-between">
+            <div class="d-flex flex-column">
+                <h2>${match.name}</h2>
+                <h2>${match.endDate}</h2>  
+             </div>
+             <div class="align-self-center">
+                 <a class="btn btn-primary" href="/TravelDetail/+ ${match.id}">Dettagli viaggio</a>
+            </div>
+        </div>`;
+        });
+    $("#listMatches").append(html);
+}
+</script>

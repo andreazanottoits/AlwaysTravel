@@ -46,6 +46,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("_myAllowSpecificOrigin");
+
 app.UseAuthorization();
 
 app.MapControllers();
